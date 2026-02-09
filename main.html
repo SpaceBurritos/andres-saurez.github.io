@@ -1,0 +1,372 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Andrés — Mechanistic Interpretability Research</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Source+Serif+4:opsz,wght@8..60,400;8..60,600;8..60,700&family=DM+Sans:wght@400;500;600&family=JetBrains+Mono:wght@400&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --text: #1a1a1a;
+            --text-secondary: #555;
+            --text-tertiary: #888;
+            --accent: #2d5a27;
+            --accent-light: #e8f0e6;
+            --bg: #fafaf8;
+            --card-bg: #ffffff;
+            --border: #e5e5e0;
+            --serif: 'Source Serif 4', Georgia, serif;
+            --sans: 'DM Sans', -apple-system, sans-serif;
+            --mono: 'JetBrains Mono', monospace;
+        }
+
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+
+        body {
+            font-family: var(--sans);
+            color: var(--text);
+            background: var(--bg);
+            line-height: 1.7;
+            font-size: 16px;
+            -webkit-font-smoothing: antialiased;
+        }
+
+        .container {
+            max-width: 720px;
+            margin: 0 auto;
+            padding: 0 24px;
+        }
+
+        /* Header */
+        header {
+            padding: 80px 0 48px;
+            border-bottom: 1px solid var(--border);
+        }
+
+        header h1 {
+            font-family: var(--serif);
+            font-size: 2.4rem;
+            font-weight: 700;
+            letter-spacing: -0.02em;
+            margin-bottom: 8px;
+        }
+
+        .subtitle {
+            font-size: 1.05rem;
+            color: var(--text-secondary);
+            margin-bottom: 20px;
+        }
+
+        .links {
+            display: flex;
+            gap: 20px;
+            flex-wrap: wrap;
+        }
+
+        .links a {
+            color: var(--accent);
+            text-decoration: none;
+            font-size: 0.9rem;
+            font-weight: 500;
+            display: flex;
+            align-items: center;
+            gap: 5px;
+            transition: opacity 0.2s;
+        }
+
+        .links a:hover { opacity: 0.7; }
+
+        .links a::before {
+            content: '';
+            width: 4px;
+            height: 4px;
+            background: var(--accent);
+            border-radius: 50%;
+            display: inline-block;
+        }
+
+        /* Sections */
+        section {
+            padding: 48px 0;
+            border-bottom: 1px solid var(--border);
+        }
+
+        section:last-of-type { border-bottom: none; }
+
+        .section-label {
+            font-size: 0.75rem;
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 0.1em;
+            color: var(--text-tertiary);
+            margin-bottom: 24px;
+        }
+
+        /* Research Vision */
+        .vision p {
+            font-family: var(--serif);
+            font-size: 1.15rem;
+            line-height: 1.8;
+            color: var(--text);
+        }
+
+        .vision p + p { margin-top: 16px; }
+
+        /* Papers */
+        .paper {
+            background: var(--card-bg);
+            border: 1px solid var(--border);
+            border-radius: 8px;
+            padding: 28px;
+            margin-bottom: 16px;
+            transition: border-color 0.2s;
+        }
+
+        .paper:hover { border-color: var(--accent); }
+
+        .paper-title {
+            font-family: var(--serif);
+            font-size: 1.15rem;
+            font-weight: 600;
+            margin-bottom: 4px;
+            line-height: 1.4;
+        }
+
+        .paper-meta {
+            font-size: 0.85rem;
+            color: var(--text-tertiary);
+            margin-bottom: 14px;
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            flex-wrap: wrap;
+        }
+
+        .paper-status {
+            background: var(--accent-light);
+            color: var(--accent);
+            padding: 2px 8px;
+            border-radius: 4px;
+            font-size: 0.78rem;
+            font-weight: 600;
+        }
+
+        .paper-desc {
+            font-size: 0.92rem;
+            color: var(--text-secondary);
+            line-height: 1.7;
+        }
+
+        .paper-links {
+            margin-top: 14px;
+            display: flex;
+            gap: 16px;
+        }
+
+        .paper-links a {
+            font-size: 0.85rem;
+            color: var(--accent);
+            text-decoration: none;
+            font-weight: 500;
+        }
+
+        .paper-links a:hover { text-decoration: underline; }
+
+        /* About */
+        .about p {
+            font-size: 0.95rem;
+            color: var(--text-secondary);
+            line-height: 1.8;
+        }
+
+        .about p + p { margin-top: 14px; }
+
+        .details {
+            margin-top: 28px;
+            display: grid;
+            grid-template-columns: 120px 1fr;
+            gap: 8px 16px;
+            font-size: 0.88rem;
+        }
+
+        .details dt {
+            color: var(--text-tertiary);
+            font-weight: 500;
+        }
+
+        .details dd { color: var(--text-secondary); }
+
+        /* Contact */
+        .contact-section p {
+            font-size: 0.95rem;
+            color: var(--text-secondary);
+        }
+
+        .contact-section a {
+            color: var(--accent);
+            text-decoration: none;
+            font-weight: 500;
+        }
+
+        .contact-section a:hover { text-decoration: underline; }
+
+        /* Footer */
+        footer {
+            padding: 32px 0 48px;
+            text-align: center;
+            font-size: 0.8rem;
+            color: var(--text-tertiary);
+        }
+
+        /* Mobile */
+        @media (max-width: 600px) {
+            header { padding: 48px 0 32px; }
+            header h1 { font-size: 1.8rem; }
+            section { padding: 36px 0; }
+            .paper { padding: 20px; }
+            .details { grid-template-columns: 1fr; gap: 4px; }
+            .details dt { margin-top: 8px; }
+        }
+    </style>
+</head>
+<body>
+
+<div class="container">
+
+    <header>
+        <!-- REPLACE: Your full name -->
+        <h1>Andrés [Your Last Name]</h1>
+        <p class="subtitle">MS in Robotics, KAIST &middot; Mechanistic Interpretability &middot; Geometric Representations</p>
+        <div class="links">
+            <!-- REPLACE: Your actual links -->
+            <a href="mailto:your@email.com">Email</a>
+            <a href="https://scholar.google.com/">Google Scholar</a>
+            <a href="https://github.com/">GitHub</a>
+            <a href="https://twitter.com/">Twitter/X</a>
+        </div>
+    </header>
+
+    <section class="vision">
+        <div class="section-label">Research Vision</div>
+        <p>
+            I study the geometric structure of how transformer models represent and manipulate concepts.
+            My work argues that interpretability is fundamentally a geometric problem: semantic features
+            correspond to directions in activation space that remain invariant across contexts, and the
+            circuits that process them can be discovered&mdash;and controlled&mdash;through alignment with
+            these directions.
+        </p>
+        <p>
+            This perspective unifies two lines of interpretability research that have developed largely in
+            isolation. Feature analysis (<em>what does the model represent?</em>) and circuit discovery
+            (<em>how does the model compute?</em>) turn out to be dual operations on the same geometric
+            structure: reading and writing directions in activation space. My goal is to develop this into
+            a rigorous mathematical framework for understanding transformer computation.
+        </p>
+    </section>
+
+    <section>
+        <div class="section-label">Publications</div>
+
+        <div class="paper">
+            <div class="paper-title">Circuit Fingerprints: How Answer Tokens Encode Their Geometrical Path</div>
+            <div class="paper-meta">
+                <!-- REPLACE: Your full name -->
+                <span>Andrés [Your Last Name]</span>
+                <span class="paper-status">Under Review &middot; ICML 2026</span>
+            </div>
+            <div class="paper-desc">
+                Answer tokens processed in isolation encode the computational pathways that produce them,
+                unifying circuit discovery and activation steering as dual read/write operations on the same
+                geometric structure. A gradient-free method for circuit discovery that matches
+                backpropagation-based approaches (EAP, EAP-IG) while requiring only a single forward pass
+                per concept. The same directions enable controlled steering, achieving 69.8% emotion
+                classification vs. 53.1% for instruction prompting while preserving 89.6% factual accuracy.
+                Validated across GPT2-Small, Qwen2.5-0.5B, Llama3.2-1B, and OPT-1.3B.
+            </div>
+            <div class="paper-links">
+                <!-- REPLACE: Actual paper links -->
+                <a href="#">Paper (PDF)</a>
+                <a href="#">arXiv</a>
+                <a href="#">Code</a>
+            </div>
+        </div>
+
+        <div class="paper">
+            <div class="paper-title">Invariant Feature Geometry in Transformer Representations</div>
+            <div class="paper-meta">
+                <!-- REPLACE: Your full name -->
+                <span>Andrés [Your Last Name]</span>
+                <span class="paper-status">Under Review &middot; ICML 2026</span>
+            </div>
+            <div class="paper-desc">
+                Why do linear representations emerge in transformers? I show this is a consequence of
+                architectural constraints, not a coincidence of training. Through the identity-projection
+                framework, semantic features maintain consistent directional representations across contexts
+                while varying in magnitude, forming invariant subspaces in activation space. This geometric
+                regularity enables zero-shot classification achieving 91.7% of supervised performance,
+                and supports model steering, circuit discovery, and feature removal across multiple domains
+                including countries, emotions, languages, and literary styles.
+            </div>
+            <div class="paper-links">
+                <!-- REPLACE: Actual paper links -->
+                <a href="#">Paper (PDF)</a>
+                <a href="#">arXiv</a>
+                <a href="#">Code</a>
+            </div>
+        </div>
+    </section>
+
+    <section class="about">
+        <div class="section-label">About</div>
+        <p>
+            I'm a Master's student in the Robotics Program at KAIST, researching mechanistic
+            interpretability of transformer models with an emphasis on mathematical foundations.
+            My work engages with the Linear Representation Hypothesis
+            (<a href="https://arxiv.org/abs/2311.03658" style="color: var(--accent); text-decoration: none;">Park et al., 2024</a>),
+            causal abstraction
+            (<a href="https://arxiv.org/abs/2301.04709" style="color: var(--accent); text-decoration: none;">Geiger et al., 2024</a>),
+            and geometric approaches to neural network analysis.
+        </p>
+        <p>
+            Before KAIST, I worked as a software engineer at TransUnion, ValueLabs, and as a freelance
+            ML consultant. I hold a degree in mechanical engineering and transitioned into machine learning
+            research driven by an interest in understanding how intelligent systems work from the inside out.
+            Originally from Costa Rica.
+        </p>
+        <p>
+            I'm looking for research positions in mechanistic interpretability&mdash;in industry labs or
+            PhD programs&mdash;where I can continue developing geometric methods for understanding and
+            controlling large language models.
+        </p>
+
+        <dl class="details">
+            <dt>Education</dt>
+            <dd>MS Robotics, KAIST (current) &middot; BS Mechanical Engineering</dd>
+            <dt>Languages</dt>
+            <dd>Spanish (native) &middot; English &middot; Korean</dd>
+            <dt>Previously</dt>
+            <dd>TransUnion &middot; ValueLabs &middot; Upwork (ML consulting)</dd>
+            <dt>Other</dt>
+            <dd>National powerlifting record holder, Costa Rica</dd>
+        </dl>
+    </section>
+
+    <section class="contact-section">
+        <div class="section-label">Contact</div>
+        <p>
+            I'm always happy to discuss interpretability research.
+            <!-- REPLACE: Your actual email -->
+            Reach me at <a href="mailto:your@email.com">your@email.com</a>.
+        </p>
+    </section>
+
+    <footer>
+        &copy; 2026
+    </footer>
+
+</div>
+
+</body>
+</html>
