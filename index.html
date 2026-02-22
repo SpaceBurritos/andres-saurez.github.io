@@ -174,6 +174,27 @@
 
         .paper-links a:hover { text-decoration: underline; }
 
+        /* Small paper card for non-primary publications */
+        .paper-small {
+            background: var(--card-bg);
+            border: 1px solid var(--border);
+            border-radius: 8px;
+            padding: 20px 28px;
+            margin-bottom: 12px;
+            transition: border-color 0.2s;
+        }
+
+        .paper-small:hover { border-color: var(--accent); }
+
+        .paper-small .paper-title {
+            font-size: 1.02rem;
+            margin-bottom: 2px;
+        }
+
+        .paper-small .paper-meta {
+            margin-bottom: 0;
+        }
+
         /* About */
         .about p {
             font-size: 0.95rem;
@@ -226,6 +247,7 @@
             header h1 { font-size: 1.8rem; }
             section { padding: 36px 0; }
             .paper { padding: 20px; }
+            .paper-small { padding: 16px 20px; }
             .details { grid-template-columns: 1fr; gap: 4px; }
             .details dt { margin-top: 8px; }
         }
@@ -239,9 +261,9 @@
         <h1>Andrés Sáurez</h1>
         <p class="subtitle">MS in Robotics, KAIST &middot; Mechanistic Interpretability &middot; Geometric Representations</p>
         <div class="links">
-            <!-- REPLACE: Your actual links -->
             <a href="mailto:andres.saurez95@gmail.com">Email</a>
             <a href="https://scholar.google.com/citations?user=ZwJoZ2QAAAAJ&hl=en">Google Scholar</a>
+            <!-- REPLACE: Your actual GitHub link -->
             <a href="https://github.com/">GitHub</a>
         </div>
     </header>
@@ -251,9 +273,9 @@
         <p>
             I study the geometric structure of how transformer models represent and manipulate concepts.
             My work argues that interpretability is fundamentally a geometric problem: semantic features
-            correspond to directions in activation space that remain invariant across contexts, and the
-            circuits that process them can be discovered&mdash;and controlled&mdash;through alignment with
-            these directions.
+            must occupy context-invariant linear subspaces&mdash;not as an empirical regularity, but as
+            a necessary consequence of how transformers communicate through linear interfaces like OV
+            circuits and unembedding matrices.
         </p>
         <p>
             This perspective unifies two lines of interpretability research that have developed largely in
@@ -268,50 +290,89 @@
         <div class="section-label">Publications</div>
 
         <div class="paper">
+            <div class="paper-title">Why Linear Interpretability Works: Invariant Subspaces as a Result of Architectural Constraints</div>
+            <div class="paper-meta">
+                <span>Andrés Sáurez, Yousung Lee, Dongsoo Har</span>
+                <span class="paper-status">Under Review &middot; ICML 2026</span>
+            </div>
+            <div class="paper-desc">
+                Why do linear probes and sparse autoencoders consistently recover meaningful structure from
+                transformer representations? We prove this is a consequence of architectural necessity:
+                any feature decoded through a transformer's linear interfaces (OV circuits, unembedding)
+                must occupy a context-invariant subspace (Invariant Subspace Necessity theorem). We derive
+                the Self-Reference Property&mdash;tokens directly encode their own feature directions&mdash;enabling
+                zero-shot identification of semantic structure without labeled data or learned probes.
+                Empirical validation across eight classification tasks and four model families (LLaMA3-8B,
+                Mistral-7B, GPT2-Small, LLaMA3.2-3B) confirms that linear probes, SAEs, and activation
+                steering all recover the same invariant directions, providing a unified architectural
+                explanation for why linear interpretability methods succeed.
+            </div>
+            <div class="paper-links">
+                <a href="https://arxiv.org/abs/2602.09783">arXiv</a>
+                <!-- REPLACE: Actual links -->
+                <a href="#">Code</a>
+            </div>
+        </div>
+
+        <div class="paper">
             <div class="paper-title">Circuit Fingerprints: How Answer Tokens Encode Their Geometrical Path</div>
             <div class="paper-meta">
                 <span>Andrés Sáurez, Neha Sengar, Dongsoo Har</span>
                 <span class="paper-status">Under Review &middot; ICML 2026</span>
             </div>
             <div class="paper-desc">
-                Answer tokens processed in isolation encode the computational pathways that produce them,
-                unifying circuit discovery and activation steering as dual read/write operations on the same
-                geometric structure. A gradient-free method for circuit discovery that matches
-                backpropagation-based approaches (EAP, EAP-IG) while requiring only a single forward pass
-                per concept. The same directions enable controlled steering, achieving 69.8% emotion
-                classification vs. 53.1% for instruction prompting while preserving 89.6% factual accuracy.
-                Validated across GPT2-Small, Qwen2.5-0.5B, Llama3.2-1B, and OPT-1.3B.
+                Circuit discovery and activation steering have developed as separate research threads&mdash;we
+                show they follow a single geometric principle. Answer tokens, processed in isolation, encode
+                the computational pathways that produce them (Circuit Fingerprint Hypothesis), enabling
+                gradient-free circuit discovery from geometric alignment alone. Validated on standard
+                benchmarks (IOI, SVA, MCQA) across GPT2-Small, Qwen2.5-0.5B, Llama3.2-1B, and OPT-1.3B,
+                achieving performance comparable to gradient-based methods (EAP, EAP-IG). The same
+                directions that identify circuit components also enable controlled steering&mdash;and can be
+                extended to discover feature circuits for emotions, languages, and personas via prompt
+                engineering alone, without task-specific datasets.
             </div>
             <div class="paper-links">
-                <!-- REPLACE: Actual paper links -->
-                <a href="#">Paper (PDF)</a>
                 <a href="https://arxiv.org/abs/2602.09784">arXiv</a>
+                <!-- REPLACE: Actual links -->
                 <a href="#">Code</a>
             </div>
         </div>
 
-        <div class="paper">
-            <div class="paper-title">Why Linear Interpretability Works: Invariant Subspaces as a Result of Architectural Constraints</div>
+        <div class="paper-small">
+            <div class="paper-title">Few Contrastive Attention Heads Enable Visual Grounding in Large VLMs</div>
             <div class="paper-meta">
-                <span>Andrés Sáurez, Yuseong Lee, Dongsoo Har</span>
-                <span class="paper-status">Under Review &middot; ICML 2026</span>
-            </div>
-            <div class="paper-desc">
-                Why do linear representations emerge in transformers? I show this is a consequence of
-                architectural constraints, not a coincidence of training. Through the identity-projection
-                framework, semantic features maintain consistent directional representations across contexts
-                while varying in magnitude, forming invariant subspaces in activation space. This geometric
-                regularity enables zero-shot classification achieving 91.7% of supervised performance,
-                and supports model steering, circuit discovery, and feature removal across multiple domains
-                including countries, emotions, languages, and literary styles.
-            </div>
-            <div class="paper-links">
-                <!-- REPLACE: Actual paper links -->
-                <a href="#">Paper (PDF)</a>
-                <a href="https://arxiv.org/abs/2602.09783">arXiv</a>
-                <a href="#">Code</a>
+                <span>Neha Sengar, Andrés Sáurez, Dongsoo Har</span>
+                <span class="paper-status">Under Review &middot; IJCAI 2026</span>
             </div>
         </div>
+
+        <div class="paper-small">
+            <div class="paper-title">DEPLOY-RL: Active Boundary Discovery and Conservative Certification for Deployable RL in Safety-Critical Continuous Processes</div>
+            <div class="paper-meta">
+                <span>Yeojin Jang, Minu Baek, Gihun Gil, et al.</span>
+                <span class="paper-status">Under Review &middot; IJCAI 2026</span>
+            </div>
+        </div>
+
+        <div class="paper-small">
+            <div class="paper-title">Continuous Adversarial Text Representation Learning for Affective Recognition</div>
+            <div class="paper-meta">
+                <span>Seungah Son, Andrés Sáurez, Dongsoo Har</span>
+                <span class="paper-status">Published &middot; ICAIIC 2025</span>
+            </div>
+            <div class="paper-desc" style="margin-top: 10px;">
+                A framework for enhancing emotion-aware embeddings in transformer-based models.
+                Introduces continuous valence-arousal labels to guide contrastive learning (replacing
+                coarse polarity labels) and a gradient-based dynamic token perturbation mechanism that
+                targets sentiment-relevant tokens. Achieves up to 15.5% improvement on emotion
+                classification benchmarks over baseline models, with well-separated emotional clusters
+                validated through alignment-uniformity analysis.
+            </div>
+            <div class="paper-links">
+                <a href="https://arxiv.org/abs/2502.20613">arXiv</a>
+            </div>
+        </div>
+
     </section>
 
     <section class="about">
@@ -353,8 +414,7 @@
         <div class="section-label">Contact</div>
         <p>
             I'm always happy to discuss interpretability research.
-            <!-- REPLACE: Your actual email -->
-            Reach me at <a href="mailto:your@email.com">your@email.com</a>.
+            Reach me at <a href="mailto:andres.saurez95@gmail.com">andres.saurez95@gmail.com</a>.
         </p>
     </section>
 
