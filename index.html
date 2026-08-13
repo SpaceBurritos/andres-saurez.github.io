@@ -16,6 +16,7 @@
             --accent-light: #e8f0e6;
             --accent-amber: #8a6a1f;
             --accent-amber-light: #f5ecd5;
+            --neutral-badge: #f0f0ec;
             --bg: #fafaf8;
             --card-bg: #ffffff;
             --border: #e5e5e0;
@@ -79,6 +80,12 @@
         }
 
         .links a:hover { opacity: 0.7; }
+
+        .links a:focus-visible {
+            outline: 2px solid var(--accent);
+            outline-offset: 3px;
+            border-radius: 2px;
+        }
 
         .links a::before {
             content: '';
@@ -146,6 +153,7 @@
             flex-wrap: wrap;
         }
 
+        /* Published or accepted work */
         .paper-status {
             background: var(--accent-light);
             color: var(--accent);
@@ -155,9 +163,27 @@
             font-weight: 600;
         }
 
+        /* Not yet peer-reviewed */
         .paper-status.preprint {
             background: var(--accent-amber-light);
             color: var(--accent-amber);
+        }
+
+        /* Submitted, decision pending */
+        .paper-status.review {
+            background: var(--neutral-badge);
+            color: var(--text-secondary);
+        }
+
+        /* Selective distinction — outlined so it reads as an award, not a status */
+        .paper-cert {
+            background: transparent;
+            border: 1px solid var(--accent-amber);
+            color: var(--accent-amber);
+            padding: 1px 8px;
+            border-radius: 4px;
+            font-size: 0.78rem;
+            font-weight: 600;
         }
 
         .paper-desc {
@@ -185,6 +211,12 @@
         }
 
         .paper-links a:hover { text-decoration: underline; }
+
+        .paper-links a:focus-visible {
+            outline: 2px solid var(--accent);
+            outline-offset: 3px;
+            border-radius: 2px;
+        }
 
         /* Small paper card for non-primary publications */
         .paper-small {
@@ -245,12 +277,22 @@
 
         .contact-section a:hover { text-decoration: underline; }
 
+        .contact-section a:focus-visible {
+            outline: 2px solid var(--accent);
+            outline-offset: 3px;
+            border-radius: 2px;
+        }
+
         /* Footer */
         footer {
             padding: 32px 0 48px;
             text-align: center;
             font-size: 0.8rem;
             color: var(--text-tertiary);
+        }
+
+        @media (prefers-reduced-motion: reduce) {
+            * { transition: none !important; }
         }
 
         /* Mobile */
@@ -276,6 +318,7 @@
             <a href="mailto:andres.saurez95@gmail.com">Email</a>
             <a href="https://scholar.google.com/citations?user=ZwJoZ2QAAAAJ&hl=en">Google Scholar</a>
             <a href="https://github.com/SpaceBurritos">GitHub</a>
+            <a href="https://www.linkedin.com/in/andres-saurez-72b574196/">LinkedIn</a>
         </div>
     </header>
 
@@ -297,7 +340,7 @@
             <div class="paper-title">Why Linear Interpretability Works: Invariant Subspaces from Architectural Constraints</div>
             <div class="paper-meta">
                 <span>Andrés Sáurez, Yousung Lee, Dongsoo Har</span>
-                <span class="paper-status">Under Review &middot; NeurIPS 2026</span>
+                <span class="paper-status review">Under Review &middot; NeurIPS 2026</span>
             </div>
             <div class="paper-desc">
                 Why do linear probes, sparse autoencoders, and activation steering consistently recover the
@@ -350,7 +393,23 @@
             <div class="paper-title">Few Contrastive Attention Heads Enable Visual Grounding in Large VLMs</div>
             <div class="paper-meta">
                 <span>Neha Sengar, Andrés Sáurez, Dongsoo Har</span>
-                <span class="paper-status">Under Review &middot; TMLR 2026</span>
+                <span class="paper-status">TMLR 2026 &middot; Accepted</span>
+                <span class="paper-cert">J2C Certification</span>
+            </div>
+            <div class="paper-desc" style="margin-top: 10px;">
+                Attention-head analysis and direct logit attribution applied to frozen vision-language models
+                (LLaVA), showing that a small number of <strong>contrastive grounding heads</strong> localize
+                referred objects&mdash;enabling training-free referring image segmentation without labeled data
+                or fine-tuning. Awarded a J2C Certification, given to roughly 10% of accepted TMLR papers.
+            </div>
+        </div>
+
+        <!-- VERIFY AUTHOR LIST BEFORE PUBLISHING — inferred from the sibling VLM paper, not confirmed -->
+        <div class="paper-small">
+            <div class="paper-title">CAGSeg: Training-Free Referring Image Segmentation via Contrastive Attribution Grounding in Vision-Language Models</div>
+            <div class="paper-meta">
+                <span>Neha Sengar, Andrés Sáurez, Dongsoo Har</span>
+                <span class="paper-status review">Under Review &middot; IEEE TCSVT</span>
             </div>
         </div>
 
@@ -407,6 +466,8 @@
         <dl class="details">
             <dt>Education</dt>
             <dd>MS Robotics, KAIST &middot; BS Mechanical Engineering, UCR</dd>
+            <dt>Based in</dt>
+            <dd>San José, Costa Rica &middot; open to relocation</dd>
             <dt>Languages</dt>
             <dd>Spanish (native) &middot; English (TOEFL 104) &middot; Korean (lower-intermediate)</dd>
             <dt>Previously</dt>
